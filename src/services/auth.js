@@ -17,12 +17,9 @@ export const register = ({email, password}) => new Promise(async (resolve, rejec
         resolve({
             err: response[1] ? 0 : 1,
             mes :response[1] ? 'register is succesfully' : 'Email is used',
-            'access-token': `Bearer ${token}`
+            'access-token': token ? `Bearer ${token}` : token
         })
-        // resolve({
-        //     err: 0,
-        //     mes : 'register resolve'
-        // })
+       
     } catch (error) {
         reject(error)
     }
@@ -39,7 +36,7 @@ export const login = ({email, password}) => new Promise(async (resolve, reject)=
         resolve({
             err: response ? 0 : 1,
             mes :token ? 'login is succesfully' : response ? 'Password was wrong' : 'Email has been registered',
-            'access-token': token ? `Bearer ${token}` : null
+            'access-token': token ? `Bearer ${token}` : token
         })
      
     } catch (error) {
