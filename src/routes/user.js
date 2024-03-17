@@ -8,8 +8,8 @@ const router = require('express').Router();
 // PUBLIC ROUTES
 
 // PRIVATE ROUTES
-// router.use(verifyToken)
+router.use(verifyToken)
 // router.use(isAdmin)
-router.get('/', [verifyToken],controllers.getCurrently)
+router.get('/',controllers.getCurrently)
 
 module.exports = router

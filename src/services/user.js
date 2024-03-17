@@ -7,7 +7,10 @@ export const getOne = (userId) => new Promise(async (resolve, reject)=>{
             where:{id: userId},
             attributes: {
                 exclude: ['password']
-            }
+            },
+            include:[
+                {model: db.Role, as: 'roleData', attributes: ['id','code' ,'value']}
+            ] 
         })
             resolve({
             err: response ? 0 : 1,
