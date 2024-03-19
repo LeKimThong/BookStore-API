@@ -6,4 +6,21 @@ export const email = joi.string()
 
 export const password = joi.string()
                            .min(6)
-                           .required()                    
+                           .required()    
+                           
+export const title = joi.string()
+                        .required()
+                        
+export const price = joi.number()
+                        .required()
+
+export const available = joi.number()
+                        .required()
+
+export const category_code = joi.string()
+                        .uppercase()
+                        .alphanum()
+                        .required()
+
+export const image = joi.string()
+                        .required()

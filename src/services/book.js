@@ -1,7 +1,7 @@
 import db from '../models'
 import { Op } from 'sequelize'
 
-
+//READ
 export const getBooks = ({page, limit, order ,name,available, ...query}) => new Promise(async (resolve, reject)=>{
     try {
         const queries = {raw: true, nest: true}
@@ -14,7 +14,13 @@ export const getBooks = ({page, limit, order ,name,available, ...query}) => new 
         if(available) query.available = {[Op.between]: available}
         const response = await db.Book.findAndCountAll({
             where:query,
-            ...queries
+            ...queries,
+            attributes: {
+                exclude: ['category_code']
+            },
+            include: [
+                {model: db.Category, attributes:{exclude: ['createdAt', 'updatedAt']}, as: 'categoryData'}
+            ]
         })
        
         resolve({
@@ -25,6 +31,22 @@ export const getBooks = ({page, limit, order ,name,available, ...query}) => new 
        
     } catch (error) {
         reject(error)
-        console.log('++++' + error)
+    }
+})
+
+//CREATE
+export const createBooks = (body) => new Promise(async (resolve, reject)=>{
+    try {
+        const response = await db.Book.findOrCreate({
+            where: {title: body?.title},
+            defaults: body
+        })  
+        resolve({
+            err: response[1] ? 0 : 1,
+            mes :response[1] ? 'Created' : 'Cannot create new book',
+        })
+       
+    } catch (error) {
+        reject(error)
     }
 })
