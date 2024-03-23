@@ -15,6 +15,7 @@ router.use(verifyToken)
 router.use(isCreator)
 router.post('/',uploadCloud.single('image') ,controllers.createBooks)
 router.put('/',uploadCloud.single('image') ,controllers.updateBook)
+router.delete('/' ,controllers.deleteBook)
 
 
 module.exports = router

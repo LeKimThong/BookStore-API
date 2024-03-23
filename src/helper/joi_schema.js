@@ -28,3 +28,6 @@ export const image = joi.string()
 
 export const bookid = joi.string()
                         .required()                        
+
+export const bookids = joi.array()
+                        .required()                            

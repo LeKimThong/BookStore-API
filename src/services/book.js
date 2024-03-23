@@ -73,3 +73,19 @@ export const updateBook = ({bookid, ...body}, fileData) => new Promise(async (re
         if(fileData) cloudinary.uploader.destroy(fileData.filename)
     }
 })
+
+//DELETE 
+export const deleteBook = ({bookids}) => new Promise(async (resolve, reject)=>{
+    try {
+        const response = await db.Book.destroy({
+            where: {id: bookids }
+        })  
+        resolve({
+            err: response > 0 ? 0 : 1,
+            mes: `${response} book(s) delte`
+        })
+    } catch (error) {
+        reject(error)
+        if(fileData) cloudinary.uploader.destroy(fileData.filename)
+    }
+})
