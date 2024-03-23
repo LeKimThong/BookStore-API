@@ -24,3 +24,7 @@ export const category_code = joi.string()
 
 export const image = joi.string()
                         .required()
+
+
+export const bookid = joi.string()
+                        .required()                        
