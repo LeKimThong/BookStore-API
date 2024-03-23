@@ -1,5 +1,6 @@
 import db from '../models'
 import { Op } from 'sequelize'
+const cloudinary = require('cloudinary').v2;
 
 //READ
 export const getBooks = ({page, limit, order ,name,available, ...query}) => new Promise(async (resolve, reject)=>{
@@ -22,7 +23,7 @@ export const getBooks = ({page, limit, order ,name,available, ...query}) => new 
                 {model: db.Category, attributes:{exclude: ['createdAt', 'updatedAt']}, as: 'categoryData'}
             ]
         })
-       
+        
         resolve({
             err: response ? 0 : 1,
             mes :response ? 'Got' : 'Cannot found',
@@ -35,18 +36,22 @@ export const getBooks = ({page, limit, order ,name,available, ...query}) => new 
 })
 
 //CREATE
-export const createBooks = (body) => new Promise(async (resolve, reject)=>{
+export const createBooks = (body, fileData) => new Promise(async (resolve, reject)=>{
     try {
         const response = await db.Book.findOrCreate({
             where: {title: body?.title},
-            defaults: body
+            defaults: {
+                ...body,
+                image: fileData?.path
+            }
         })  
         resolve({
             err: response[1] ? 0 : 1,
             mes :response[1] ? 'Created' : 'Cannot create new book',
         })
-       
+        if(fileData && !response[1]) cloudinary.uploader.destroy(fileData.filename)
     } catch (error) {
         reject(error)
+        if(fileData && !response[1]) cloudinary.uploader.destroy(fileData.filename)
     }
 })
