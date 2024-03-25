@@ -31,3 +31,7 @@ export const bookid = joi.string()
 
 export const bookids = joi.array()
                         .required()                            
+
+export const filename = joi.array()
+                        .required()
+                                              
