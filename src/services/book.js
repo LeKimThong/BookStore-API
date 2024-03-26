@@ -61,9 +61,10 @@ export const createBooks = (body, fileData) => new Promise(async (resolve, rejec
 //UPDATE 
 export const updateBook = ({bookid, ...body}, fileData) => new Promise(async (resolve, reject)=>{
     try {
+        // Trỏ về lấy file name
         const Book = await db.Book.findByPk(bookid);
         const image = Book.filename
-        console.log(fileData.filename)
+        // gán filename mới
         if(fileData) body.image = fileData?.path
         body.filename = fileData?.filename 
         const response = await db.Book.update(body, {

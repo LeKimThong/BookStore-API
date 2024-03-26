@@ -1,6 +1,6 @@
 import * as services from "../services/";
 import { internalserverError, badRequest } from "../middlewares/handle_errors";
-import { title, image, category_code, available,price,bookid, bookids, filename } from "../helper/joi_schema";
+import { title, image, category_code, available,price,bookid, bookids, filename, description } from "../helper/joi_schema";
 import Joi  from "joi";
 const cloudinary = require('cloudinary').v2;
 
@@ -18,7 +18,7 @@ export const getBooks = async (req, res) => {
 export const createBooks = async (req, res) => {
     try {
         const fileData = req.file
-        const {error}= Joi.object({title, image, category_code, available, price}).validate({...req.body, image: fileData?.path})
+        const {error}= Joi.object({title, image, category_code, available, price, description}).validate({...req.body, image: fileData?.path})
         
         if(error){
             if(fileData) cloudinary.uploader.destroy(fileData.filename)

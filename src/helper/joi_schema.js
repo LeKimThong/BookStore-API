@@ -25,7 +25,6 @@ export const category_code = joi.string()
 export const image = joi.string()
                         .required()
 
-
 export const bookid = joi.string()
                         .required()                        
 
@@ -34,4 +33,10 @@ export const bookids = joi.array()
 
 export const filename = joi.array()
                         .required()
-                                              
+
+
+export const description = joi.string()
+
+export const refresh_token = joi.string()
+                                .required()
+                                                               
