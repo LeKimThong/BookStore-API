@@ -90,11 +90,11 @@ export const refreshToken = (refresh_token) => new Promise(async (resolve, rejec
                     mes: 'Refresh Token expired. Require login again'
                 })
             }else {  
-                const access_token = jwt.sign({id: response.id, email: response.email, role_code: response.role_code}, process.env.JWT_SECRET, {expiresIn:'5s'})
+                const access_token = jwt.sign({id: response.id, email: response.email, role_code: response.role_code}, process.env.JWT_SECRET, {expiresIn:'120s'})
                 resolve({
                     err: access_token ? 0 : 1,
                     mes: access_token ? 'Ok' : 'Failed to generate new access token',
-                    'access-token': access_token,
+                    'access_token': access_token ? `Bearer ${access_token}` : access_token,
                     'refresh-token': refresh_token
                 })
             }

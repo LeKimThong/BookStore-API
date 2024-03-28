@@ -30,7 +30,7 @@ export const login = async (req, res) => {
     try {
         const {error} = Joi.object({refresh_token}).validate(req.body)
         if (error) return badRequest(error.details[0]?.message, res)
-        const response = await services.refreshToken(req.body.refreshToken)
+        const response = await services.refreshToken(req.body.refresh_token)
         return res.status(200).json(response)
 
     } catch (error) {
