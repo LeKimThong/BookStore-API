@@ -39,4 +39,11 @@ export const description = joi.string()
 
 export const refresh_token = joi.string()
                                 .required()
+
+export const code = joi.string()
+                       .required()
+                       
+export const value = joi.string()
+                       .required()                                
+                                                                    
                                                                
